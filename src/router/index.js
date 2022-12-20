@@ -3,16 +3,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: () => import('@/views/Home'),
-    },
-]
+const routes = [{
+  path: '/', name: 'Home', component: () => import('@/views/Home'),
+}, {
+  path: '/page', name: 'page', component: () => import('@/views/DragPage/index'),
+},]
 
 export default new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes,
+  mode: 'history', base: process.env.BASE_URL, routes,
 })
