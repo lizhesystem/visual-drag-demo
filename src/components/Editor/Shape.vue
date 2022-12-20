@@ -272,11 +272,11 @@ export default {
       document.addEventListener('mousemove', move)
       document.addEventListener('mouseup', up)
 
-      this.$nextTick(() => {
-        document.getElementById('shape').addEventListener("drag", (e) => {
-          console.log(e)
-        })
-      })
+      // this.$nextTick(() => {
+      //   document.getElementById('shape').addEventListener("drag", (e) => {
+      //     console.log(e)
+      //   })
+      // })
     },
     handleDragStart(e) {
       console.log(e)
