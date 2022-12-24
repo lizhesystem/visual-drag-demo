@@ -3,16 +3,17 @@
     class="tool-bar"
     ref="toolBar"
     :style="{top:barStyle.top,left:barStyle.left}"
-    @mousedown="mouseDownOnBar">
+    @mousedown="mouseDownOnBar"
+  >
     <ul>
       <li>
-        <i class="el-icon-menu" title="模块"></i>
+        <i class="el-icon-menu" @click="openAttrPanel('module')" title="模块"></i>
       </li>
       <li>
-        <i class="el-icon-s-open" title="样式"></i>
+        <i class="el-icon-s-open" @click="openAttrPanel('style')" title="样式"></i>
       </li>
       <li>
-        <i class="el-icon-s-tools" title="设置"></i>
+        <i class="el-icon-s-tools" @click="openAttrPanel('setting')" title="设置"></i>
       </li>
     </ul>
   </div>
@@ -20,27 +21,31 @@
 
 <script>
 export default {
-  name: "toolBar",
+  name: 'toolBar',
   data() {
     return {
       barStyle: {
         top: 100,
-        left: 80
-      }
+        left: 80,
+      },
     }
   },
   methods: {
+    openAttrPanel(type) {
+      this.$store.commit('setAttrPanelType', type)
+      this.$store.commit('hideToolsBar')
+    },
     mouseDownOnBar(e) {
       e.stopPropagation()
       e.preventDefault()
       //算出鼠标相对元素的位置
-      const disX = e.clientX - this.$refs.toolBar.offsetLeft;
-      const disY = e.clientY - this.$refs.toolBar.offsetTop;
-      let left,top = '';
+      const disX = e.clientX - this.$refs.toolBar.offsetLeft
+      const disY = e.clientY - this.$refs.toolBar.offsetTop
+      let left, top = ''
       const move = (moveEvent) => {
         //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
-        left = moveEvent.clientX - disX;
-        top = moveEvent.clientY - disY;
+        left = moveEvent.clientX - disX
+        top = moveEvent.clientY - disY
         this.barStyle.top = top + 'px'
         this.barStyle.left = left + 'px'
       }
@@ -52,7 +57,7 @@ export default {
 
       document.addEventListener('mousemove', move)
       document.addEventListener('mouseup', up)
-    }
+    },
   },
 }
 </script>
@@ -61,8 +66,6 @@ export default {
 .tool-bar {
   position: absolute;
   z-index: 999;
-  //top: 100px;
-  //left: 80px;
   cursor: move;
 
   > ul {

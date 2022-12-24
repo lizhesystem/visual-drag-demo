@@ -24,7 +24,7 @@ export const pContainer = {
   elChild: []
 }
 
-export const componentList = [
+export const componentsList = [
   {
     title: '基础组件',
     components: [
