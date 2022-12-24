@@ -32,13 +32,11 @@ export default {
   methods: {
     mouseDownOnBar(e) {
       e.stopPropagation()
-      e.preventDefault() // Let's stop this event.
+      e.preventDefault()
       //算出鼠标相对元素的位置
       const disX = e.clientX - this.$refs.toolBar.offsetLeft;
       const disY = e.clientY - this.$refs.toolBar.offsetTop;
-      let left = '';
-      let top = '';
-
+      let left,top = '';
       const move = (moveEvent) => {
         //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
         left = moveEvent.clientX - disX;
