@@ -124,7 +124,7 @@ export default {
         clearStyle(e) {
             e.preventDefault()
             const clp = e.clipboardData
-            const text = clp.getData('Text/plain') || ''
+            const text = clp.getData('p-text/plain') || ''
             if (text !== '') {
                 document.execCommand('insertText', false, text)
             }

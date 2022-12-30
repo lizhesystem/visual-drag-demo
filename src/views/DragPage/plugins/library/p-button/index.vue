@@ -1,7 +1,7 @@
 <template>
-  <a class="button">
+  <a class="p-button">
     <edit-div
-      v-model='btnValue'
+      v-model='tempValue'
       nowrap
       class="user-select"
       @textClick="childItem.contenteditable = true"
@@ -44,12 +44,25 @@ export default {
 }
 </script>
 
-<style scoped>
-.button {
-  background-color: #2ecc71;
-  color: #fff;
+<style scoped lang="scss">
+.p-button {
+  background-color: rgb(255, 114, 20);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
-  display: block
+  display: block;
+
+  .beyond {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .user-select {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+  }
+
 }
 
 

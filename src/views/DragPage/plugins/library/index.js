@@ -1,8 +1,9 @@
 import Vue from 'vue'
 
-const components = [
-  'p-Text',
-  'p-Button'
+export const components = [
+  'p-text',
+  'p-button',
+  'p-container'
 ]
 
 components.forEach(key => {

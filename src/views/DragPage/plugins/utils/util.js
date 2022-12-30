@@ -1,3 +1,20 @@
+import {elementConfig} from "@/views/DragPage/plugins/utils/page-config";
+
+/**
+ * 生成uuid方法
+ * @returns {string}
+ */
+export const createUUID = function () {
+  let d = new Date().getTime();
+  if (window.performance && typeof window.performance.now === 'function') {
+    d += performance.now() // use high-precision timer if available
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16)
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
+  })
+}
 /**
  * 深拷贝
  * @param {*} obj 拷贝对象(object or array)
@@ -37,18 +54,16 @@ export const deepClone = function (obj, cache = []) {
 // 组装节点的数据
 export const getElementConfig = function (element) {
   // 当前组件的基本信息数据
-  let elementData = cloneDeep(element)
+  let elementData = deepClone(element)
   // 获取初始化字段属性数据
-  let elementConfigData = cloneDeep(elementConfig)
+  let elementConfigData = deepClone(elementConfig)
   let config = {
     uuid: createUUID(), // 必需品
     ...elementConfigData,
-    ...elementData,
-    propsValue: deepClone(elementData.needProps || {})
+    ...elementData
   }
   // 样式
-  config.commonStyle = merge(config.commonStyle, elementData.commonStyle)
-  delete config.needProps
+  config.commonStyle = {...config.commonStyle, ...elementData.commonStyle}
   return config
 }
 
@@ -97,4 +112,14 @@ export const getComponentProps = (elName) => {
     props[key] = datas[key]
   }
   return props
+}
+
+// 判断是否为一个对象
+export const judgeObject = (obj) => {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}
+
+// 判断是否为一个数组
+export const judgeArray = (att) => {
+  return Object.prototype.toString.call(att) === '[object Array]'
 }

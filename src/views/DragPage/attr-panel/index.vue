@@ -7,8 +7,7 @@
         <i @click="$store.commit('hideToolsBar')" class="el-icon-close"></i>
       </div>
       <!--组件库-->
-      <components-list>
-      </components-list>
+      <components-list></components-list>
       <!--属性面板-->
       <div>
         当前Attr模块：{{ curAttrPanelType }}
@@ -19,12 +18,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 import ComponentsList from '@/views/DragPage/attr-panel/components-list.vue'
 
 export default {
   name: 'attrPanel',
-  components: { ComponentsList },
+  components: {ComponentsList},
   data() {
     return {
       attrPanelStyle: {
@@ -70,7 +69,7 @@ export default {
   z-index: 999;
 
   .box-card {
-    width: 400px;
+    width: 490px;
 
     ::v-deep {
       .el-card__header {

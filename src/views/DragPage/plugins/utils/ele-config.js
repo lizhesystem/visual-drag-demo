@@ -1,4 +1,4 @@
-// 基础样式
+// 容器基础样式
 export const defaultStyle = {
   position: 'absolute',
   top: 5,
@@ -8,7 +8,7 @@ export const defaultStyle = {
 //容器
 export const pContainer = {
   elName: 'p-container',
-  label: '自由容器',
+  title: '自由容器',
   icon: 'el-icon-files',
   pointList: ['b'],
   allowed: true,
@@ -31,11 +31,13 @@ export const componentsList = [
       pContainer,
       {
         elName: 'p-text',
-        label: '文本',
+        title: '文本',
         icon: 'el-icon-menu',
         pointList: [],
         contenteditable: false,
         placeholder: '点击输入内容',
+        module: false,
+        propValue: {},
         commonStyle: {
           ...defaultStyle,
           padding: 8,
@@ -55,6 +57,7 @@ export const componentsList = [
         icon: 'el-icon-menu',
         pointList: ['lt', 'rt', 'lb', 'rb', 'l', 'r', 't', 'b'], // 控制组件拖动的方向
         contenteditable: false,
+        module: false,
         options: {
           classList: [],
           lineHeightChange: true // 表示行高需要随着拖动的高度变化
@@ -73,3 +76,8 @@ export const componentsList = [
     ]
   }
 ]
+
+
+export const drawingComponent = componentsList.map(item => item.components.map(con => {
+  if (!con.module && con.elName !== 'p-container') return con.elName
+}))[0].filter(item => item)

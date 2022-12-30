@@ -28,22 +28,29 @@ export default {
         top: 100,
         left: 80,
       },
+      // 放置mousedown和click冲突
+      clickFlag: false,
+      firstTime: 0,
+      lastTime: 0
     }
   },
   methods: {
     openAttrPanel(type) {
-      this.$store.commit('setAttrPanelType', type)
-      this.$store.commit('hideToolsBar')
+      if (this.clickFlag) {
+        this.$store.commit('setAttrPanelType', type)
+        this.$store.commit('hideToolsBar')
+        this.clickFlag = false
+      }
     },
     mouseDownOnBar(e) {
       e.stopPropagation()
       e.preventDefault()
+      this.firstTime = new Date().getTime()
       //算出鼠标相对元素的位置
       const disX = e.clientX - this.$refs.toolBar.offsetLeft
       const disY = e.clientY - this.$refs.toolBar.offsetTop
       let left, top = ''
       const move = (moveEvent) => {
-        //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
         left = moveEvent.clientX - disX
         top = moveEvent.clientY - disY
         this.barStyle.top = top + 'px'
@@ -51,10 +58,13 @@ export default {
       }
 
       const up = () => {
+        this.lastTime = new Date().getTime()
+        if ((this.lastTime - this.firstTime) < 200) {
+          this.clickFlag = true
+        }
         document.removeEventListener('mousemove', move)
         document.removeEventListener('mouseup', up)
       }
-
       document.addEventListener('mousemove', move)
       document.addEventListener('mouseup', up)
     },
